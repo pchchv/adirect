@@ -1,3 +1,6 @@
+from modifier import mod
+
+
 def generator(txt1, txt2):
     res = []
     for i in txt1:
@@ -6,7 +9,7 @@ def generator(txt1, txt2):
     return res
 
 
-txt1 = list(set(open('test.txt', 'r').read().lower().split()))
-txt2 = list(set(open('test1.txt', 'r').read().lower().split()))
+txt1 = mod(open('test.txt', 'r').read())
+txt2 = mod(open('test1.txt', 'r').read())
 
 print('\n'.join(generator(txt1, txt2)))
