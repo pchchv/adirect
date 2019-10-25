@@ -9,4 +9,4 @@ def mod(words):
     words = list(set(words.lower().split()))
     return words
 
-#print(modificator(open('test.txt', 'r').read()))
+print(mod(open('test.txt', 'r').read()))
