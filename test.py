@@ -1,7 +1,9 @@
 from processors import *
 
-words = modifier(open('/home/jack/Documents/Projects/aDirect/test.txt', 'r').read())
-words1 = modifier(open('/home/jack/Documents/Projects/aDirect/test1.txt', 'r').read())
-words2 = modifier(open('/home/jack/Documents/Projects/aDirect/test2.txt', 'r').read())
+words = modifier(open('test.txt', 'r').read(), 'all_cities')
+words1 = modifier(open('test1.txt', 'r').read(), 'all')
+words2 = modifier(open('test2.txt', 'r').read(), 'all')
 
-print('\n'.join(generator(words, words1, words2)))
+#print(words)
+#print(CityRemover(words))
+#print('\n'.join(generator(words, words1, words2)))

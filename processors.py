@@ -4,13 +4,40 @@ from itertools import product
 import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
 
-def modifier(words):
+def modifier(words, type):
     """Функция получает набор данных от пользователя, чистит данные от лишних знаков и выводит список строк по слову в строке.
     На данный момент реализованна только функция отчистки от всех знаков.
 
     """
-    words = re.sub('[{}]'.format(re.escape(string.punctuation)), '', words) #удаляем знаки пунктуации
+    marks = ''
+    if 'all' in type:
+        marks = string.punctuation
+    if 'quotes' in type:
+        marks += '[“”‘«»„“]'
+    if 'exclamation_mark' in type:
+        marks += '!'
+    if 'space' in type:
+        marks += '   '
+    if 'plus' in type:   #Удаляет все +
+        marks += '+'
+    if 'uppercase' in type:
+        for i in words:
+            i.title()
+    if 'cities' in type:
+        CityRemover(words)
+        if type == 'cities':
+            result = ' '.join(words)
+            return result
+
+    #Минус слова
+
+    #Пустые строки
+
+    #Удалить + в предлогах
+
+    words = re.sub('[{}]'.format(re.escape(marks)), '', words) #удаляем знаки пунктуации
     words = list(set(words.lower().split()))
+    result = ' '.join(words)
     return words
 
 def declension(word):
@@ -24,7 +51,8 @@ def declension(word):
         decls.append(decl[-3].strip(',').strip("'"))
     if word not in decls:
         decls.append(word)
-    return decls
+    result = ' '.join(decls)
+    return result
 
 def counter(words):
     """Функция считает количество уникальных слов
@@ -34,17 +62,19 @@ def counter(words):
     while len(words) > 0:
         res.append(words[0])                   #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
-    return res
+    result = ' '.join(words)
+    return result
 
 def generator(*words):
     """Функция получает на вход от 2 до 10 списков, и выводит список сочетаний эллементов входных списков.
 
     """
-    gwords = list(product(*words))
+    genwords = list(product(*words))
     res = []
     for i in gwords:
         res.append(' '.join(i))
-    return res
+    result = ' '.join(res)
+    return result
 
 def lemma(words):
     """Функция получает список слов и выводит список нормальных форм
@@ -53,4 +83,13 @@ def lemma(words):
     res = []
     for i in words:
         res.append(morph.parse(i)[0].normal_form)
-    return(set(res))
+    result = ' '.join(res)
+    return result
+
+def CityRemover(KeyWords, StopCity = open('StopCity.txt', 'r').read()):
+    """Функция получает список слов и удаляет из него города
+    """
+    KeyWords = KeyWords.split()
+    Keywords = [word for word in KeyWords if word.lower() not in StopCity]
+    result = ' '.join(KeyWords)
+    return result
