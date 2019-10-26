@@ -40,7 +40,10 @@ def generator(*words):
     """Функция получает на вход от 2 до 10 списков, и выводит список сочетаний эллементов входных списков.
 
     """
-    res = list(product(*words))
+    gwords = list(product(*words))
+    res = []
+    for i in gwords:
+        res.append(' '.join(i))
     return res
 
 def lemma(words):
