@@ -51,18 +51,19 @@ def declension(word):
         decls.append(decl[-3].strip(',').strip("'"))
     if word not in decls:
         decls.append(word)
-    result = ' '.join(decls)
-    return result
+    return decls
 
 def counter(words):
-    """Функция считает количество уникальных слов
+    """Функция считает количество уникальных слов.
+    Возвращает список, в котором первый элемент - количество слов, второй - все слова через пробел.
 
     """
     res = []
     while len(words) > 0:
         res.append(words[0])                   #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
-    result = ' '.join(words)
+    result = ['Количество слов - ' + str(len(res))]
+    result.append(' '.join(res))
     return result
 
 def generator(*words):
@@ -71,7 +72,7 @@ def generator(*words):
     """
     genwords = list(product(*words))
     res = []
-    for i in gwords:
+    for i in genwords:
         res.append(' '.join(i))
     result = ' '.join(res)
     return result
