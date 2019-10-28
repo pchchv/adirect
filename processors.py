@@ -5,8 +5,8 @@ import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
 
 def modifier(words, type):
-    """Функция получает набор данных от пользователя, чистит данные от лишних знаков и выводит список строк по слову в строке.
-    На данный момент реализованна только функция отчистки от всех знаков.
+    """Функция получает набор данных от пользователя, чистит данные от знаков и выводит список строк по слову в строке.
+    Параметр type содержит информацию какие знаки удалять.
 
     """
     marks = ''
@@ -21,37 +21,54 @@ def modifier(words, type):
     if 'plus' in type:   #Удаляет все +
         marks += '+'
     if 'uppercase' in type:
-        for i in words:
-            i.title()
+        for word in words:
+            words.title()
+        if type == 'uppercase':
+            result = ' '.join(words)
     if 'cities' in type:
         CityRemover(words)
         if type == 'cities':
             result = ' '.join(words)
-            return result
+    if '+prep' in type:
+        for word in words.strip().split('\n'):
+            if word[0] == '+' and 'PREP' or 'CONJ' in morph.parse(word[1:])[0].tag.POS:
+                words.replace(word, word[1:])
+
 
     #Минус слова
 
     #Пустые строки
 
     #Удалить + в предлогах
-
-    words = re.sub('[{}]'.format(re.escape(marks)), '', words) #удаляем знаки пунктуации
-    words = list(set(words.lower().split()))
+    if marks != '':
+        words = re.sub('[{}]'.format(re.escape(marks)), '', words) #удаляем знаки пунктуации
+    words = list(words.lower().split('\n'))
+    if 'pass' in type:
+        for el in words:
+            if el == '':
+                words.replace(el)
+    if 'dub' in type:
+        list(set(words))
     result = ' '.join(words)
-    return words
+    return result
 
-def declension(word):
+def declension(UserInput):
     """Функция возвращает список склонений заданного слова, включая само слово.
 
     """
-    words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
-    decls = []
-    for element in words:                                 #В цикле поэлементно чистим список от лишних данных
-        decl = str(element).split(' ')
-        decls.append(decl[-3].strip(',').strip("'"))
-    if word not in decls:
-        decls.append(word)
-    return decls
+    result = []
+    if type(UserInput) == str:
+        UserInput = UserInput.split(' ')
+    for word in UserInput:
+        words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
+        decls = []
+        for element in words:
+            decl = str(element).split(' ')
+            decls.append(decl[-3])
+        if word not in decls:
+            decls.append(word)
+        result.append(decls)
+    return result
 
 def counter(words):
     """Функция считает количество уникальных слов.
@@ -84,8 +101,7 @@ def lemma(words):
     res = []
     for i in words:
         res.append(morph.parse(i)[0].normal_form)
-    result = ' '.join(res)
-    return result
+    return res
 
 def CityRemover(KeyWords, StopCity = open('StopCity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
