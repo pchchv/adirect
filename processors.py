@@ -34,12 +34,8 @@ def modifier(words, type):
             if word[0] == '+' and 'PREP' or 'CONJ' in morph.parse(word[1:])[0].tag.POS:
                 words.replace(word, word[1:])
 
-
     #Минус слова
 
-    #Пустые строки
-
-    #Удалить + в предлогах
     if marks != '':
         words = re.sub('[{}]'.format(re.escape(marks)), '', words) #удаляем знаки пунктуации
     words = list(words.lower().split('\n'))
@@ -52,14 +48,14 @@ def modifier(words, type):
     result = ' '.join(words)
     return result
 
-def declension(UserInput):
+def declension(words):
     """Функция возвращает список склонений заданного слова, включая само слово.
 
     """
     result = []
-    if type(UserInput) == str:
-        UserInput = UserInput.split(' ')
-    for word in UserInput:
+    if type(words) == str:
+        words = words.split(' ')
+    for word in words:
         words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
         decls = []
         for element in words:
@@ -103,10 +99,21 @@ def lemma(words):
         res.append(morph.parse(i)[0].normal_form)
     return res
 
-def CityRemover(KeyWords, StopCity = open('StopCity.txt', 'r').read()):
+def CityRemover(UserInput, StopCity = open('StopCity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
     """
-    KeyWords = KeyWords.split()
-    Keywords = [word for word in KeyWords if word.lower() not in StopCity]
-    result = ' '.join(KeyWords)
+    words = UserInput.split()
+    words = [word for word in words if word.lower() not in StopCity]
+    result = ' '.join(words)
     return result
+
+def trim_utm(url):
+    if "utm_" not in url:
+        return url
+    matches = re.findall('(.+\?)([^#]*)(.*)', url)
+    if len(matches) == 0:
+        return url
+    match = matches[0]
+    query = match[1]
+    sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])
+    return match[0]+sanitized_query+match[2]
