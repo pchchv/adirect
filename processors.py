@@ -23,8 +23,6 @@ def modifier(words, type):
     if 'uppercase' in type:
         for word in words:
             words.title()
-        if type == 'uppercase':
-            result = '\n'.join(words)
     if 'cities' in type:
         words = CityRemover(words)
     if '+prep' in type:
@@ -43,26 +41,27 @@ def modifier(words, type):
                 words.replace(el)
     if 'dub' in type:
         list(set(words))
-    result = '\n'.join(words)
-    return result
+    return words
 
-def declension(words):
+def declension(UserInput):
     """Функция возвращает список склонений заданного слова, включая само слово.
 
     """
     result = []
     decls = []
-    if type(words) == str:
-        words = words.replace('\n', ' ').split(' ')
-    for word in words:
+    if type(UserInput) == str:
+        UserInput = UserInput.replace('\n', ' ').split(' ')
+    for word in UserInput:
         words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
         for element in words:
             decl = str(element).split(' ')
             decls.append(decl[-3])
         if word not in decls:
             decls.append(word)
+        if len(UserInput) == 1:
+            return decls
         result.append(decls)
-        return result
+    return result
 
 def counter(words):
     """Функция считает количество уникальных слов.
@@ -71,10 +70,10 @@ def counter(words):
     """
     res = []
     while len(words) > 0:
-        res.append(words[0])                   #Добавляем первый элемент списка к результирующему списку
+        res.append(words[0])                  #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
     result = ['Количество слов - ' + str(len(res))]
-    result.append('\n'.join(res))
+    result.append(' '.join(res))
     return result
 
 def generator(*words):
