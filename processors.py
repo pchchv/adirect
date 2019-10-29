@@ -24,11 +24,9 @@ def modifier(words, type):
         for word in words:
             words.title()
         if type == 'uppercase':
-            result = ' '.join(words)
+            result = '\n'.join(words)
     if 'cities' in type:
-        CityRemover(words)
-        if type == 'cities':
-            result = ' '.join(words)
+        words = CityRemover(words)
     if '+prep' in type:
         for word in words.strip().split('\n'):
             if word[0] == '+' and 'PREP' or 'CONJ' in morph.parse(word[1:])[0].tag.POS:
@@ -45,7 +43,7 @@ def modifier(words, type):
                 words.replace(el)
     if 'dub' in type:
         list(set(words))
-    result = ' '.join(words)
+    result = '\n'.join(words)
     return result
 
 def declension(words):
@@ -53,18 +51,18 @@ def declension(words):
 
     """
     result = []
+    decls = []
     if type(words) == str:
-        words = words.split(' ')
+        words = words.replace('\n', ' ').split(' ')
     for word in words:
         words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
-        decls = []
         for element in words:
             decl = str(element).split(' ')
             decls.append(decl[-3])
         if word not in decls:
             decls.append(word)
         result.append(decls)
-    return result
+        return result
 
 def counter(words):
     """Функция считает количество уникальных слов.
@@ -76,7 +74,7 @@ def counter(words):
         res.append(words[0])                   #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
     result = ['Количество слов - ' + str(len(res))]
-    result.append(' '.join(res))
+    result.append('\n'.join(res))
     return result
 
 def generator(*words):
@@ -87,7 +85,7 @@ def generator(*words):
     res = []
     for i in genwords:
         res.append(' '.join(i))
-    result = ' '.join(res)
+    result = '\n'.join(res)
     return result
 
 def lemma(words):
@@ -102,9 +100,9 @@ def lemma(words):
 def CityRemover(UserInput, StopCity = open('StopCity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
     """
-    words = UserInput.split()
+    words = UserInput.split('\n')
     words = [word for word in words if word.lower() not in StopCity]
-    result = ' '.join(words)
+    result = '\n'.join(words)
     return result
 
 def trim_utm(url):
