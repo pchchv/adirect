@@ -1,5 +1,7 @@
 import re
 import string
+import requests
+import json
 from itertools import product
 import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
@@ -35,6 +37,8 @@ def modifier(words, type):
     if marks != '':
         words = re.sub('[{}]'.format(re.escape(marks)), '', words) #удаляем знаки пунктуации
     words = list(words.lower().split('\n'))
+    if words[-1] == '':
+        words.remove(words[-1])
     if 'pass' in type:
         for el in words:
             if el == '':
@@ -114,3 +118,16 @@ def trim_utm(url):
     query = match[1]
     sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])
     return match[0]+sanitized_query+match[2]
+
+def synonym(UserInput):
+    result = []
+    for i in UserInput:
+        words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i
+        words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()
+        words = re.sub('[{}]'.format(re.escape(string.printable.replace(' ', ''))), '', words)
+        while '  ' in words:
+            words = words.replace('  ', ' ')
+        if len(UserInput) == 1:
+            return words.split()
+        result.append(words.split())
+    return result
