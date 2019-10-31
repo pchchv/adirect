@@ -124,10 +124,12 @@ def synonym(UserInput):
     for i in UserInput:
         words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i
         words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()
-        words = re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words)
+        print(words)
+        words = (re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words))
         while '  ' in words:
             words = words.replace('  ', ' ')
         if len(UserInput) == 1:
-            return words.split()
-        result.append(words.split())
+            result = words.split()
+        else:
+            result.append(words.split())
     return result
