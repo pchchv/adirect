@@ -109,6 +109,8 @@ def CityRemover(UserInput, StopCity = open('StopCity.txt', 'r').read()):
     return result
 
 def trim_utm(url):
+    """Функция получает ссылку и удаляет из неё utm метки.
+    """
     if "utm_" not in url:
         return url
     matches = re.findall('(.+\?)([^#]*)(.*)', url)
@@ -120,12 +122,13 @@ def trim_utm(url):
     return match[0]+sanitized_query+match[2]
 
 def synonym(UserInput):
+    """Функция получает список слов и выводит список синонимов.
+    """
     result = []
     for i in UserInput:
-        words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i
-        words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()
-        print(words)
-        words = (re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words))
+        words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i  #Создание строки для запроса
+        words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()          #Запрос по api словаря синонимов и декодирование utf8
+        words = (re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words))   #Отчистка результата от лишних символов
         while '  ' in words:
             words = words.replace('  ', ' ')
         if len(UserInput) == 1:
