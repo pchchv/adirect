@@ -124,7 +124,7 @@ def synonym(UserInput):
     for i in UserInput:
         words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i
         words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()
-        words = re.sub('[{}]'.format(re.escape(string.printable.replace(' ', ''))), '', words)
+        words = re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words)
         while '  ' in words:
             words = words.replace('  ', ' ')
         if len(UserInput) == 1:
