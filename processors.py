@@ -125,14 +125,16 @@ def synonym(UserInput):
     """Функция получает список слов и выводит список синонимов.
     """
     result = []
+    a = ord('а')
+    russ = ''.join([chr(i) for i in range(a,a+32)]) + 'ё '
     for i in UserInput:
         words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i  #Создание строки для запроса
         words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()          #Запрос по api словаря синонимов и декодирование utf8
-        words = (re.sub('[{}]'.format(re.escape(string.printable.replace(' ', '') + '\xad')), '', words))   #Отчистка результата от лишних символов
-        while '  ' in words:
-            words = words.replace('  ', ' ')
+        for i in words:                       #Отчистка результата от лишних символов
+            if i not in russ:
+                words = words.replace(i, '').replace('  ', ' ')
+        words = words.split()
         if len(UserInput) == 1:
-            result = words.split()
-        else:
-            result.append(words.split())
+            return words
+        result.append(words)
     return result
