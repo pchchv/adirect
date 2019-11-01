@@ -129,10 +129,10 @@ def synonym(UserInput):
     russ = ''.join([chr(i) for i in range(a,a+32)]) + 'ё '
     for i in UserInput:
         words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i  #Создание строки для запроса
-        words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode()          #Запрос по api словаря синонимов и декодирование utf8
-        for i in words:                       #Отчистка результата от лишних символов
-            if i not in russ:
-                words = words.replace(i, '').replace('  ', ' ')
+        words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode().lower()          #Запрос по api словаря синонимов и декодирование utf8
+        for letter in words:                       #Отчистка результата от лишних символов
+            if letter not in russ:
+                words = words.replace(letter, '').replace('  ', ' ')     #Удаляем лишние прибелы и символы не входящие в русский алфавит
         words = words.split()
         if len(UserInput) == 1:
             return words
