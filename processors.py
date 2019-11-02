@@ -5,6 +5,7 @@ import json
 from itertools import product
 import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
+import functools
 
 def modifier(words, type):
     """Функция получает набор данных от пользователя, чистит данные от знаков и выводит список строк по слову в строке.
@@ -140,8 +141,14 @@ def synonym(UserInput):
     return result
 
 def CrossMinus(UserInput):
+    words = []
     for keys in UserInput:
-        keys = keys.lower().split()
-        words = lemma(UserInput)
-        modwords += ' '.join(words)
-    return modwords
+        keys = keys.lower().split(' ')
+        keys = lemma(keys)
+        words.append(keys)
+    dub = functools.reduce(set.__and__, (set(i) for i in words))
+    for key in words:
+        for i in range(len(key)):
+            if key[i] not in dub:
+                key[i] = '-' + key[i]
+    return words
