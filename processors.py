@@ -138,3 +138,10 @@ def synonym(UserInput):
             return words
         result.append(words)
     return result
+
+def CrossMinus(UserInput):
+    for keys in UserInput:
+        keys = keys.lower().split()
+        words = lemma(UserInput)
+        modwords += ' '.join(words)
+    return modwords
