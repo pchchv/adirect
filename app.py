@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
+from processors import *
 
 app = Flask(__name__)
 
@@ -26,6 +27,8 @@ def inclinator():
 
 @app.route('/keyword/lemmatizer')
 def lemmatizer():
+    text = request.form['UserInput']
+    #return (lemma(text))
     return render_template('/keyword/lemmatizer.html', title='Лемматизатор', ServiceName='Лемматизатор')
 
 @app.route('/keyword/synonymizer')
