@@ -142,13 +142,18 @@ def synonym(UserInput):
 
 def CrossMinus(UserInput):
     words = []
+    allwords = []
     for keys in UserInput:
         keys = keys.lower().split(' ')
         keys = lemma(keys)
         words.append(keys)
-    dub = functools.reduce(set.__and__, (set(i) for i in words))
+    dub = set(functools.reduce(set.__and__, (set(i) for i in words)))
     for key in words:
-        for i in range(len(key)):
-            if key[i] not in dub:
-                key[i] = '-' + key[i]
+        allwords += key
+    allwords = set(allwords)
+    allwords ^= dub
+    for key in words:
+        for word in allwords:
+            if word not in key:
+                key.append('-' + word)
     return words
