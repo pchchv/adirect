@@ -141,6 +141,8 @@ def synonym(UserInput):
     return result
 
 def CrossMinus(UserInput):
+    """ Функция получает на вход список фраз и производит добавление слов с префиксом '-' не входящих в данную фразу,
+        но входящих в стальные фразы"""
     words = []
     allwords = []
     for keys in UserInput:

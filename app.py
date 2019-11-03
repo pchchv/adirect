@@ -28,7 +28,7 @@ def inclinator():
 @app.route('/keyword/lemmatizer')
 def lemmatizer():
     text = request.form['UserInput']
-    #return (lemma(text))
+    #return (lemma(modifier(text, 'all')))
     return render_template('/keyword/lemmatizer.html', title='Лемматизатор', ServiceName='Лемматизатор')
 
 @app.route('/keyword/synonymizer')
