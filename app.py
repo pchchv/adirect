@@ -1,4 +1,8 @@
+<<<<<<< HEAD:flask/app/app.py
 from flask import Flask, render_template, request
+=======
+from flask import Flask, request, render_template
+>>>>>>> 83772c93fd1123bf364dd5d4cb8f9a0c288fe6fb:app.py
 from processors import *
 
 app = Flask(__name__)
@@ -108,6 +112,8 @@ def ServiceInclinator():
 
 @app.route('/keyword/lemmatizer')
 def lemmatizer():
+    text = request.form['UserInput']
+    #return (lemma(modifier(text, 'all')))
     return render_template('/keyword/lemmatizer.html', title='Лемматизатор', ServiceName='Лемматизатор')
 
 
