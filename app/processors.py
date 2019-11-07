@@ -14,7 +14,7 @@ def modifier(words, type):
     """
     marks = ''
     if 'all' in type:
-        marks = string.punctuation
+        marks = string.punctuation + '\r'
     if 'quotes' in type:
         marks += '[“”‘«»„“]'
     if 'exclamation_mark' in type:
@@ -101,13 +101,17 @@ def lemma(words):
         res.append(morph.parse(i)[0].normal_form)
     return res
 
-def CityRemover(UserInput, StopCity = open('StopCity.txt', 'r').read()):
+def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
     """
-    words = UserInput.split('\n')
-    words = [word for word in words if word.lower() not in StopCity]
-    result = '\n'.join(words)
-    return result
+    result = []
+    print(UserInput)
+    for words in UserInput:
+        words = words.split(' ')
+        words = [word for word in words if word not in StopCity]
+        words = ' '.join(words)
+        result.append(words)
+    return '\n'.join(result)
 
 def trim_utm(url):
     """Функция получает ссылку и удаляет из неё utm метки.
@@ -144,7 +148,7 @@ def synonym(UserInput):
         result.append(words)
     return result
 
-def CrossMinus(UserInput):
+def crossminus(UserInput):
     words = []
     for keys in UserInput:
         keys = keys.lower().split(' ')

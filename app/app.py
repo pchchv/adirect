@@ -108,7 +108,7 @@ def CityRemover():
 
 @app.route('/keyword/cityremover/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceCityRemover():
-    words = CityRemover(request.form["words"])
+    words = cityremover(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/cityremover.html', title='Удаление городов', ServiceName='Удаление городов',
                            result=words)
