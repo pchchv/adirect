@@ -98,7 +98,7 @@ def ServiceTrimUtm():
     words = trim_utm(request.form["words"])
 
     return render_template('/keyword/trimutm.html', title='Удаление UTM меток', ServiceName='Удаление UTM меток',
-                           result=words)
+                           result='\n'.join(words))
 
 
 @app.route('/keyword/cityremover')

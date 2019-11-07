@@ -112,15 +112,19 @@ def CityRemover(UserInput, StopCity = open('StopCity.txt', 'r').read()):
 def trim_utm(url):
     """Функция получает ссылку и удаляет из неё utm метки.
     """
-    if "utm_" not in url:
-        return url
-    matches = re.findall('(.+\?)([^#]*)(.*)', url)
-    if len(matches) == 0:
-        return url
-    match = matches[0]
-    query = match[1]
-    sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])
-    return match[0]+sanitized_query+match[2]
+    url = url.split('\n')
+    result = []
+    for url in url:
+        if "utm_" not in url:
+           return url
+        matches = re.findall('(.+\?)([^#]*)(.*)', url)
+        if len(matches) == 0:
+           return url
+        match = matches[0]
+        query = match[1]
+        sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])
+        result.append(match[0]+sanitized_query+match[2])
+    return result
 
 def synonym(UserInput):
     """Функция получает список слов и выводит список синонимов.
