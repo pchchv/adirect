@@ -14,7 +14,7 @@ def modifier(words, type):
     """
     marks = ''
     if 'all' in type:
-        marks = string.punctuation + '\r'
+        marks += string.punctuation + '\r'
     if 'quotes' in type:
         marks += '[“”‘«»„“]'
     if 'exclamation_mark' in type:
@@ -26,8 +26,6 @@ def modifier(words, type):
     if 'uppercase' in type:
         for word in words:
             words.title()
-    if 'cities' in type:
-        words = CityRemover(words)
     if '+prep' in type:
         for word in words.strip().split('\n'):
             if word[0] == '+' and 'PREP' or 'CONJ' in morph.parse(word[1:])[0].tag.POS:
@@ -41,9 +39,8 @@ def modifier(words, type):
     if words[-1] == '':
         words.remove(words[-1])
     if 'pass' in type:
-        for el in words:
-            if el == '':
-                words.replace(el)
+        while '' in words:
+            words.remove('')
     if 'dub' in type:
         list(set(words))
     return words
@@ -73,12 +70,12 @@ def counter(words):
     Возвращает список, в котором первый элемент - количество слов, второй - все слова через пробел.
 
     """
-    res = []
+    result = []
     while len(words) > 0:
-        res.append(words[0])                  #Добавляем первый элемент списка к результирующему списку
+        result.append(words[0])               #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
-    result = ['Количество слов - ' + str(len(res))]
-    result.append(' '.join(res))
+    result.insert(0, 'Количество слов - ' + str(len(result)))
+    result = '\n'.join(result)
     return result
 
 def generator(*words):

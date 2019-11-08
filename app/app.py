@@ -83,7 +83,7 @@ def wordcount():
 
 @app.route('/keyword/wordcount/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceWordcount():
-    words = counter(request.form["words"])
+    words = counter(modifier(request.form["words"], 'allpass'))
 
     return render_template('/keyword/wordcount.html', title='Считалка слов', ServiceName='Считалка слов', result=words)
 
