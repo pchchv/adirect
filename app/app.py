@@ -46,7 +46,7 @@ def inclinator():
 
 @app.route('/keyword/inclinator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceInclinator():
-    words = (modifier(request.form["words"], 'all'))
+    words = declension(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/inclinator.html', title='Склонятор', ServiceName='Склонение ключевых слов',
                            result=words)

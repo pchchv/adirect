@@ -51,19 +51,18 @@ def declension(UserInput):
     """
     result = []
     decls = []
-    if type(UserInput) == str:
-        UserInput = UserInput.replace('\n', ' ').split(' ')
     for word in UserInput:
-        words = morph.parse(word.lower())[0].lexeme          #Создаётся список всех форм слова
+        words = morph.parse(word.lower())[0].lexeme 
         for element in words:
+            print(element)
             decl = str(element).split(' ')
-            decls.append(decl[-3])
+            decls.append(decl[-3].replace("'", '').replace(',', ''))
         if word not in decls:
             decls.append(word)
         if len(UserInput) == 1:
-            return decls
+            return '\n'.join(decls)
         result.append(decls)
-    return result
+    return '\n'.join(result)
 
 def counter(words):
     """Функция считает количество уникальных слов.
