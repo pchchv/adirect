@@ -46,7 +46,7 @@ def inclinator():
 
 @app.route('/keyword/inclinator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceInclinator():
-    words = modifier(request.form["words"], 'all')
+    words = (modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/inclinator.html', title='Склонятор', ServiceName='Склонение ключевых слов',
                            result=words)
@@ -59,7 +59,7 @@ def lemmatizer():
 
 @app.route('/keyword/lemmatizer/submit', methods=['GET', 'POST'])  # принимает текст
 def inclinatorLemmatizer():
-    words = lemma(request.form["words"])
+    words = lemma(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/lemmatizer.html', title='Лемматизатор', ServiceName='Лемматизатор', result=words)
 

@@ -93,10 +93,11 @@ def lemma(words):
     """Функция получает список слов и выводит список нормальных форм
 
     """
+    print(words)
     res = []
     for i in words:
         res.append(morph.parse(i)[0].normal_form)
-    return res
+    return '\n'.join(res)
 
 def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
@@ -134,7 +135,7 @@ def synonym(UserInput):
     a = ord('а')
     russ = ''.join([chr(i) for i in range(a,a+32)]) + 'ё '
     for i in UserInput:
-        words = 'http://ltmaggie.informatik.uni-hamburg.de/jobimviz/ws/api/russianTrigram/jo/similar/' + i  #Создание строки для запроса
+        words = 'http://www.serelex.org/find/ru-skipgram-librusec/' + i  #Создание строки для запроса
         words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode().lower()          #Запрос по api словаря синонимов и декодирование utf8
         for letter in words:                       #Отчистка результата от лишних символов
             if letter not in russ:
