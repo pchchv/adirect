@@ -75,8 +75,7 @@ def counter(words):
         result.append(words[0])               #Добавляем первый элемент списка к результирующему списку
         words = list(set(words) - set(declension(words[0]).split('\n')))  #Удаляем перенесённый элемент и его склонения
     result.insert(0, 'Количество слов - ' + str(len(result)))
-    result = '\n'.join(result)
-    return result
+    return '\n'.join(result)
 
 def generator(*words):
     """Функция получает на вход от 2 до 10 списков, и выводит список сочетаний эллементов входных списков.
