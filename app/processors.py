@@ -113,9 +113,7 @@ def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
 def trim_utm(url):
     """Функция получает ссылку и удаляет из неё utm метки.
     """
-    print(url)
     url = url.split('\n')
-    print(url)
     while '' in url:
         url.remove('')
     while '\r' in url:
