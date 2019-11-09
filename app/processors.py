@@ -51,10 +51,11 @@ def declension(UserInput):
     """
     result = []
     decls = []
+    if type(UserInput) is str:
+        UserInput = UserInput.replace('\n', ' ').split(' ')
     for word in UserInput:
-        words = morph.parse(word.lower())[0].lexeme 
+        words = morph.parse(word.lower())[0].lexeme
         for element in words:
-            (element)
             decl = str(element).split(' ')
             decls.append(decl[-3].replace("'", '').replace(',', ''))
         if word not in decls:
@@ -72,7 +73,7 @@ def counter(words):
     result = []
     while len(words) > 0:
         result.append(words[0])               #Добавляем первый элемент списка к результирующему списку
-        words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
+        words = list(set(words) - set(declension(words[0]).split('\n')))  #Удаляем перенесённый элемент и его склонения
     result.insert(0, 'Количество слов - ' + str(len(result)))
     result = '\n'.join(result)
     return result
@@ -112,7 +113,13 @@ def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
 def trim_utm(url):
     """Функция получает ссылку и удаляет из неё utm метки.
     """
+    print(url)
     url = url.split('\n')
+    print(url)
+    while '' in url:
+        url.remove('')
+    while '\r' in url:
+        url.remove('\r')
     result = []
     for url in url:
         if "utm_" not in url:
