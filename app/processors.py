@@ -54,7 +54,7 @@ def declension(UserInput):
     for word in UserInput:
         words = morph.parse(word.lower())[0].lexeme 
         for element in words:
-            print(element)
+            (element)
             decl = str(element).split(' ')
             decls.append(decl[-3].replace("'", '').replace(',', ''))
         if word not in decls:
@@ -92,7 +92,7 @@ def lemma(words):
     """Функция получает список слов и выводит список нормальных форм
 
     """
-    print(words)
+    (words)
     res = []
     for i in words:
         res.append(morph.parse(i)[0].normal_form)
@@ -102,7 +102,6 @@ def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
     """Функция получает список слов и удаляет из него города
     """
     result = []
-    print(UserInput)
     for words in UserInput:
         words = words.split(' ')
         words = [word for word in words if word not in StopCity]
@@ -146,14 +145,25 @@ def synonym(UserInput):
     return result
 
 def crossminus(UserInput):
+    """ Функция получает на вход список фраз и производит добавление слов с префиксом '-' не входящих в данную фразу,
+        но входящих в стальные фразы"""
     words = []
+    allwords = []
+    result = []
     for keys in UserInput:
-        keys = keys.lower().split(' ')
-        keys = lemma(keys)
+        keys = keys.split(' ')
         words.append(keys)
-    dub = functools.reduce(set.__and__, (set(i) for i in words))
+    dub = set(functools.reduce(set.__and__, (set(i) for i in words)))
     for key in words:
-        for i in range(len(key)):
-            if key[i] not in dub:
-                key[i] = '-' + key[i]
-    return words
+        allwords += key
+    allwords = set(allwords)
+    allwords ^= dub
+    #print(words)
+    #print(allwords)
+    for key in words:
+        for word in allwords:
+            if word not in key:
+                key.append('-' + word)
+    for i in range(len(words)):
+        result.append(' '.join(words[i]))
+    return '\n'.join(result)

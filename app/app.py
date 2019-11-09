@@ -27,13 +27,13 @@ def ServiceGenerator():
 
 
 @app.route('/keyword/crossminus', methods=['GET', 'POST'])
-def crossminus():
+def CrossMinus():
     return render_template('/keyword/crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз')
 
 
 @app.route('/keyword/crossminus/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceCrossminus():
-    words = CrossMinus(request.form["words"])
+    words = crossminus(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз',
                            result=words)
