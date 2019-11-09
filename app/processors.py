@@ -62,7 +62,7 @@ def declension(UserInput):
             decls.append(word)
         if len(UserInput) == 1:
             return '\n'.join(decls)
-        result.append(decls)
+        result.append('\n'.join(decls))
     return '\n'.join(result)
 
 def counter(words):
@@ -82,7 +82,9 @@ def generator(*words):
     """Функция получает на вход от 2 до 10 списков, и выводит список сочетаний эллементов входных списков.
 
     """
+    print(*words)
     genwords = list(product(*words))
+    print(genwords)
     res = []
     for i in genwords:
         res.append(' '.join(i))
