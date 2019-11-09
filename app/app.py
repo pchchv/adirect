@@ -21,7 +21,17 @@ def generator():
 
 @app.route('/keyword/generator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceGenerator():
-    words = generator(request.form["words"])
+    resgen = []
+    resgen.append(modifier(request.form["colamn0"], 'all'))
+    resgen.append(modifier(request.form["colamn1"], 'all'))
+    resgen.append(modifier(request.form["colamn2"], 'all'))
+    resgen.append(modifier(request.form["colamn3"], 'all'))
+    resgen.append(modifier(request.form["colamn4"], 'all'))
+    resgen.append(modifier(request.form["colamn5"], 'all'))
+    resgen.append(modifier(request.form["colamn6"], 'all'))
+    print(resgen)
+    words = generator(resgen)
+
     return render_template('/keyword/generator.html', title='Генератор фраз', ServiceName='Генератор фраз',
                            result=words)
 
@@ -83,7 +93,7 @@ def wordcount():
 
 @app.route('/keyword/wordcount/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceWordcount():
-    words = counter(modifier(request.form["words"], 'allpass'))
+    words = counter(modifier(request.form["words"], 'allpasswrap'))
 
     return render_template('/keyword/wordcount.html', title='Считалка слов', ServiceName='Считалка слов', result=words)
 
