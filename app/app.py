@@ -15,22 +15,22 @@ def team():
 
 
 @app.route('/keyword/generator')
-def generator():
+def Generator():
     return render_template('/keyword/generator.html', title='Генератор фраз', ServiceName='Генератор фраз')
 
 
 @app.route('/keyword/generator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceGenerator():
-    resgen = []
-    resgen.append(modifier(request.form["colamn0"], 'all'))
-    resgen.append(modifier(request.form["colamn1"], 'all'))
-    resgen.append(modifier(request.form["colamn2"], 'all'))
-    resgen.append(modifier(request.form["colamn3"], 'all'))
-    resgen.append(modifier(request.form["colamn4"], 'all'))
-    resgen.append(modifier(request.form["colamn5"], 'all'))
-    resgen.append(modifier(request.form["colamn6"], 'all'))
-    print(resgen)
-    words = generator(resgen)
+    colamn = []
+    colamn.append(modifier(request.form["colamn0"], 'all'))
+    colamn.append(modifier(request.form["colamn1"], 'all'))
+    colamn.append(modifier(request.form["colamn2"], 'all'))
+    colamn.append(modifier(request.form["colamn3"], 'all'))
+    colamn.append(modifier(request.form["colamn4"], 'all'))
+    colamn.append(modifier(request.form["colamn5"], 'all'))
+    colamn.append(modifier(request.form["colamn6"], 'all'))
+
+    words = generator(colamn)
 
     return render_template('/keyword/generator.html', title='Генератор фраз', ServiceName='Генератор фраз',
                            result=words)

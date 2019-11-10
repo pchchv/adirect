@@ -77,18 +77,17 @@ def counter(words):
     result.insert(0, 'Количество слов - ' + str(len(result)))
     return '\n'.join(result)
 
-def generator(*words):
-    """Функция получает на вход от 2 до 10 списков, и выводит список сочетаний эллементов входных списков.
+def generator(words):
+    """Функция получает на вход от 2 до 6 списков, и выводит список сочетаний эллементов входных списков.
 
     """
-    print(*words)
-    genwords = list(product(*words))
-    print(genwords)
+    while [] in words:
+        words.remove([])
+    genwords = list(product(*tuple(words)))
     res = []
     for i in genwords:
-        res.append(' '.join(i))
-    result = '\n'.join(res)
-    return result
+        res.append(' '.join(list(i)))
+    return '\n'.join(res)
 
 def lemma(words):
     """Функция получает список слов и выводит список нормальных форм
