@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from .processors import *
+from processors import *
 
 app = Flask(__name__)
 
@@ -122,3 +122,6 @@ def ServiceCityRemover():
 
     return render_template('/keyword/cityremover.html', title='Удаление городов', ServiceName='Удаление городов',
                            result=words)
+
+if __name__ == "__main__":
+    app.run()

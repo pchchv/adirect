@@ -1,4 +1,5 @@
 import re
+import os
 import string
 import requests
 import json
@@ -6,6 +7,9 @@ from itertools import product
 import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
 import functools
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+city = os.path.join(THIS_FOLDER, 'opencity.txt')
 
 def modifier(words, type):
     """Функция получает набор данных от пользователя, чистит данные от знаков и выводит список строк по слову в строке.
@@ -99,7 +103,7 @@ def lemma(words):
         res.append(morph.parse(i)[0].normal_form)
     return '\n'.join(res)
 
-def cityremover(UserInput, StopCity = open('stopcity.txt', 'r').read()):
+def cityremover(UserInput, StopCity = city):
     """Функция получает список слов и удаляет из него города
     """
     result = []
@@ -172,3 +176,6 @@ def crossminus(UserInput):
     for i in range(len(words)):
         result.append(' '.join(words[i]))
     return '\n'.join(result)
+
+if __name__ == "__main__":
+    processors.run()
