@@ -167,8 +167,6 @@ def crossminus(UserInput):
         allwords += key
     allwords = set(allwords)
     allwords ^= dub
-    #print(words)
-    #print(allwords)
     for key in words:
         for word in allwords:
             if word not in key:
@@ -177,5 +175,5 @@ def crossminus(UserInput):
         result.append(' '.join(words[i]))
     return '\n'.join(result)
 
-if __name__ == "__main__":
-    processors.run()
+#if __name__ == "__main__":
+#    .run()
