@@ -1,6 +1,6 @@
 FROM python:3.7
-ADD . /app
-WORKDIR /app
+ADD . /aDirect
+WORKDIR /aDirect
 RUN chmod ugo+x conf.sh
 RUN /bin/bash -c "source conf.sh"
 RUN pip install flask gunicorn pymorphy2 requests
