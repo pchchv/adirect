@@ -175,5 +175,12 @@ def crossminus(UserInput):
         result.append(' '.join(words[i]))
     return '\n'.join(result)
 
-#if __name__ == "__main__":
-#    .run()
+"""if __name__ == "__main__":
+    modifier()
+    counter()
+    generator()
+    lemma()
+    cityremover()
+    trim_utm()
+    synonym()
+    crossminus()"""

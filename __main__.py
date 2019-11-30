@@ -1,3 +1,5 @@
-from . import processors
-if __name__ == "__main__":
-    processors.run()
+#!/usr/bin/env python3
+from .processors import *
+def main():
+if __name__ == '__main__':
+    main()

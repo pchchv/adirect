@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from . import processors
+from processors import modifier, counter, generator, lemma, cityremover, trim_utm, synonym, crossminus
 
 application = Flask(__name__)
 
@@ -14,38 +14,38 @@ def team():
     return render_template('team.html', title='Считалка слов', ServiceName='Считалка слов')
 
 
-@application.route('/keyword/processors.generator')
+@application.route('/keyword/generator')
 def Generator():
-    return render_template('/keyword/processors.generator.html', title='Генератор фраз', ServiceName='Генератор фраз')
+    return render_template('/keyword/generator.html', title='Генератор фраз', ServiceName='Генератор фраз')
 
 
-@application.route('/keyword/processors.generator/submit', methods=['GET', 'POST'])  # принимает текст
+@application.route('/keyword/generator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceGenerator():
     colamn = []
-    colamn.applicationend(processors.modifier(request.form["colamn0"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn1"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn2"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn3"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn4"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn5"], 'all'))
-    colamn.applicationend(processors.modifier(request.form["colamn6"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn0"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn1"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn2"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn3"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn4"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn5"], 'all'))
+    colamn.applicationend(modifier(request.form["colamn6"], 'all'))
 
-    words = processors.generator(colamn)
+    words = generator(colamn)
 
-    return render_template('/keyword/processors.generator.html', title='Генератор фраз', ServiceName='Генератор фраз',
+    return render_template('/keyword/generator.html', title='Генератор фраз', ServiceName='Генератор фраз',
                            result=words)
 
 
-@application.route('/keyword/processors.crossminus', methods=['GET', 'POST'])
+@application.route('/keyword/crossminus', methods=['GET', 'POST'])
 def CrossMinus():
-    return render_template('/keyword/processors.crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз')
+    return render_template('/keyword/crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз')
 
 
-@application.route('/keyword/processors.crossminus/submit', methods=['GET', 'POST'])  # принимает текст
+@application.route('/keyword/crossminus/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceCrossminus():
-    words = processors.crossminus(processors.modifier(request.form["words"], 'all'))
+    words = crossminus(modifier(request.form["words"], 'all'))
 
-    return render_template('/keyword/processors.crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз',
+    return render_template('/keyword/crossminus.html', title='Кросс-минусовка фраз', ServiceName='Кросс-минусовка фраз',
                            result=words)
 
 
@@ -56,7 +56,7 @@ def inclinator():
 
 @application.route('/keyword/inclinator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceInclinator():
-    words = processors.declension(processors.modifier(request.form["words"], 'all'))
+    words = declension(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/inclinator.html', title='Склонятор', ServiceName='Склонение ключевых слов',
                            result=words)
@@ -69,7 +69,7 @@ def lemmatizer():
 
 @application.route('/keyword/lemmatizer/submit', methods=['GET', 'POST'])  # принимает текст
 def inclinatorLemmatizer():
-    words = processors.lemma(processors.modifier(request.form["words"], 'all'))
+    words = lemma(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/lemmatizer.html', title='Лемматизатор', ServiceName='Лемматизатор', result=words)
 
@@ -81,7 +81,7 @@ def synonymizer():
 
 @application.route('/keyword/synonymizer/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceSynonymizer():
-    words = processors.synonym(request.form["words"])
+    words = synonym(request.form["words"])
 
     return render_template('/keyword/synonymizer.html', title='Синонимайзер', ServiceName='Синонимайзер', result=words)
 
@@ -93,7 +93,7 @@ def wordcount():
 
 @application.route('/keyword/wordcount/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceWordcount():
-    words = processors.counter(processors.modifier(request.form["words"], 'allpasswrap'))
+    words = counter(modifier(request.form["words"], 'allpasswrap'))
 
     return render_template('/keyword/wordcount.html', title='Считалка слов', ServiceName='Считалка слов', result=words)
 
@@ -105,22 +105,22 @@ def TrimUtm():
 
 @application.route('/keyword/trimutm/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceTrimUtm():
-    words = processors.trim_utm(request.form["words"])
+    words = trim_utm(request.form["words"])
 
     return render_template('/keyword/trimutm.html', title='Удаление UTM меток', ServiceName='Удаление UTM меток',
                            result='\n'.join(words))
 
 
-@application.route('/keyword/processors.cityremover')
+@application.route('/keyword/cityremover')
 def CityRemover():
-    return render_template('/keyword/processors.cityremover.html', title='Удаление городов', ServiceName='Удаление городов')
+    return render_template('/keyword/cityremover.html', title='Удаление городов', ServiceName='Удаление городов')
 
 
-@application.route('/keyword/processors.cityremover/submit', methods=['GET', 'POST'])  # принимает текст
+@application.route('/keyword/cityremover/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceCityRemover():
-    words = processors.cityremover(processors.modifier(request.form["words"], 'all'))
+    words = cityremover(modifier(request.form["words"], 'all'))
 
-    return render_template('/keyword/processors.cityremover.html', title='Удаление городов', ServiceName='Удаление городов',
+    return render_template('/keyword/cityremover.html', title='Удаление городов', ServiceName='Удаление городов',
                            result=words)
 
 if __name__ == "__main__":
