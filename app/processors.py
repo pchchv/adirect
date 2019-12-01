@@ -87,7 +87,7 @@ def generator(words):
     """
     while [] in words:
         words.remove([])
-    genwords = list(product(*tuple(words)))
+    genwords = list(product(*words))
     res = []
     for i in genwords:
         res.append(' '.join(list(i)))

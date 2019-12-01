@@ -6,7 +6,7 @@ application = Flask(__name__)
 
 @application.route('/')
 def index():
-    return render_template('index.html', title='Home', ServiceName='Сделаемэто!')
+    return render_template('index.html', title='Home', ServiceName='Сделаем это!')
 
 
 @application.route('/team')
@@ -22,13 +22,13 @@ def Generator():
 @application.route('/keyword/generator/submit', methods=['GET', 'POST'])  # принимает текст
 def ServiceGenerator():
     colamn = []
-    colamn.applicationend(modifier(request.form["colamn0"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn1"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn2"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn3"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn4"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn5"], 'all'))
-    colamn.applicationend(modifier(request.form["colamn6"], 'all'))
+    colamn.append(modifier(request.form["colamn0"], 'all'))
+    colamn.append(modifier(request.form["colamn1"], 'all'))
+    colamn.append(modifier(request.form["colamn2"], 'all'))
+    colamn.append(modifier(request.form["colamn3"], 'all'))
+    colamn.append(modifier(request.form["colamn4"], 'all'))
+    colamn.append(modifier(request.form["colamn5"], 'all'))
+    colamn.append(modifier(request.form["colamn6"], 'all'))
 
     words = generator(colamn)
 
