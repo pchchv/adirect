@@ -4,8 +4,4 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install -r requirements.txt && pip install gunicorn
-
-RUN gunicorn -b 0.0.0.0:80 run
-
-
+RUN pip3 install -r requirements.txt && pip3 install gunicorn
