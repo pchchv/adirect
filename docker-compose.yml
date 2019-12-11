@@ -9,7 +9,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - '/home/qwil/Adirect/adirect/app/static'
+      - '/home/qwil/adirect/adirect/app/static'
   nginx:
     build: 
       context: ./nginx
