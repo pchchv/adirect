@@ -5,11 +5,11 @@ services:
     build:
       context: ./adirect
       dockerfile: Dockerfile
-    command: gunicorn --bind 0.0.0.0:80 run
+    command: gunicorn -w 5 --bind 0.0.0.0:80 run
     ports:
       - '80:80'
     volumes:
-      - '/home/qwil/testversion1/adirect/app/static'
+      - '/home/qwil/Adirect/adirect/app/static'
   nginx:
     build: 
       context: ./nginx
