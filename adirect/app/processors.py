@@ -150,9 +150,10 @@ def trim_utm(urls):
     else:
         return result"""
 
-def synonym(userinput):
+def synonym(text):
     """Функция получает список слов и выводит список синонимов.
     """
+    userinput = modifier(text, 'all')
     result = []
     a = ord('а')
     russ = ''.join([chr(i) for i in range(a,a+32)]) + 'ё '
@@ -162,11 +163,11 @@ def synonym(userinput):
         for letter in words:                       #Отчистка результата от лишних символов
             if letter not in russ:
                 words = words.replace(letter, '').replace('  ', ' ')     #Удаляем лишние прибелы и символы не входящие в русский алфавит
-        words = words.split()
         if len(userinput) == 1:
-            return words
-        result.append(words)
-    return result
+           return words.replace(' ', '\n')
+        else:
+           result.append(words.replace(' ', '\n'))
+    return '\n'.join(result)
 
 def crossminus(userinput):
     """ Функция получает на вход список фраз и производит добавление слов с префиксом '-' не входящих в данную фразу,
