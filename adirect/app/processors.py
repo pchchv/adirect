@@ -9,7 +9,9 @@ from itertools import product
 import functools
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-city = os.path.join(THIS_FOLDER, 'opencity.txt')
+cities = os.path.join(THIS_FOLDER, 'stopcity.txt')    # stopcity - файл содержащий список городов
+with open(cities) as file:
+    cities = file.read()
 
 def modifier(words, type):
     """Функция получает набор данных от пользователя, чистит данные от знаков и выводит список строк по слову в строке.
@@ -103,7 +105,7 @@ def lemma(words):
         res.append(morph.parse(i)[0].normal_form)
     return '\n'.join(res)
 
-def cityremover(UserInput, StopCity = city):
+def cityremover(UserInput, StopCity = cities):
     """Функция получает список слов и удаляет из него города
     """
     result = []
