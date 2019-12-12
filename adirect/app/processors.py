@@ -119,18 +119,21 @@ def cityremover(userinput, stopcity = cities):
 def trim_utm(urls):
     """Функция получает ссылку или несколько ссыло разделённых переносом строки(\n) и удаляет из неё utm метки.
     Если вводится одна ссылка - выводится строка, если несколько - список строк.
+
     """
+    result = []
     urls = urls.split('\n')
     while '' in urls:
         urls.remove('')
     while '\r' in urls:
         urls.remove('\r')
-    result = []
     for url in urls:
         if "utm_" not in url:          # Проверка на содержание utm метки
            result.append(url)
-           continue
-        matches = re.findall('(.+\?)([^#]*)(.*)', url)
+        else:
+            result.append(url[:url.rfind('/') + 1])
+    return '\n'.join(result)
+"""        matches = re.findall('(.+\?)([^#]*)(.*)', url)
         if len(matches) == 0:
            result.append(url)
            continue
@@ -145,7 +148,7 @@ def trim_utm(urls):
     if len(urls) == 1:
         return result[0]
     else:
-        return result
+        return result"""
 
 def synonym(userinput):
     """Функция получает список слов и выводит список синонимов.
