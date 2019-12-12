@@ -116,26 +116,36 @@ def cityremover(userinput, stopcity = cities):
         result.append(words)
     return '\n'.join(result)
 
-def trim_utm(url):
-    """Функция получает ссылку и удаляет из неё utm метки.
+def trim_utm(urls):
+    """Функция получает ссылку или несколько ссыло разделённых переносом строки(\n) и удаляет из неё utm метки.
+    Если вводится одна ссылка - выводится строка, если несколько - список строк.
     """
-    url = url.split('\n')
-    while '' in url:
-        url.remove('')
-    while '\r' in url:
-        url.remove('\r')
+    urls = urls.split('\n')
+    while '' in urls:
+        urls.remove('')
+    while '\r' in urls:
+        urls.remove('\r')
     result = []
-    for url in url:
-        if "utm_" not in url:
-           return url
+    for url in urls:
+        if "utm_" not in url:          # Проверка на содержание utm метки
+           result.append(url)
+           continue
         matches = re.findall('(.+\?)([^#]*)(.*)', url)
         if len(matches) == 0:
-           return url
+           result.append(url)
+           continue
         match = matches[0]
         query = match[1]
-        sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])
+        print(match[0])
+        sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])   # Отчистка от метки
         result.append(match[0]+sanitized_query+match[2])
-    return result
+    for url in result:
+        if url[-1] != '/':
+            result[result.index(url)] = url[:url.rfind('/')]
+    if len(urls) == 1:
+        return result[0]
+    else:
+        return result
 
 def synonym(userinput):
     """Функция получает список слов и выводит список синонимов.
