@@ -51,22 +51,22 @@ def modifier(words, type):
         list(set(words))
     return words
 
-def declension(UserInput):
+def declension(userinput):
     """Функция возвращает список склонений заданного слова, включая само слово.
 
     """
     result = []
     decls = []
-    if type(UserInput) is str:
-        UserInput = UserInput.replace('\n', ' ').split(' ')
-    for word in UserInput:
+    if type(userinput) is str:
+        userinput = userinput.replace('\n', ' ').split(' ')
+    for word in userinput:
         words = morph.parse(word.lower())[0].lexeme
         for element in words:
             decl = str(element).split(' ')
             decls.append(decl[-3].replace("'", '').replace(',', ''))
         if word not in decls:
             decls.append(word)
-        if len(UserInput) == 1:
+        if len(userinput) == 1:
             return '\n'.join(decls)
         result.append('\n'.join(decls))
     return '\n'.join(result)
@@ -105,13 +105,13 @@ def lemma(words):
         res.append(morph.parse(i)[0].normal_form)
     return '\n'.join(res)
 
-def cityremover(UserInput, StopCity = cities):
+def cityremover(userinput, stopcity = cities):
     """Функция получает список слов и удаляет из него города
     """
     result = []
-    for words in UserInput:
+    for words in userinput:
         words = words.split(' ')
-        words = [word for word in words if word not in StopCity]
+        words = [word for word in words if word not in stopcity]
         words = ' '.join(words)
         result.append(words)
     return '\n'.join(result)
@@ -137,31 +137,31 @@ def trim_utm(url):
         result.append(match[0]+sanitized_query+match[2])
     return result
 
-def synonym(UserInput):
+def synonym(userinput):
     """Функция получает список слов и выводит список синонимов.
     """
     result = []
     a = ord('а')
     russ = ''.join([chr(i) for i in range(a,a+32)]) + 'ё '
-    for i in UserInput:
+    for i in userinput:
         words = 'http://www.serelex.org/find/ru-skipgram-librusec/' + i  #Создание строки для запроса
         words = json.dumps(requests.get(words).json(), ensure_ascii=False).encode('utf8').decode().lower()          #Запрос по api словаря синонимов и декодирование utf8
         for letter in words:                       #Отчистка результата от лишних символов
             if letter not in russ:
                 words = words.replace(letter, '').replace('  ', ' ')     #Удаляем лишние прибелы и символы не входящие в русский алфавит
         words = words.split()
-        if len(UserInput) == 1:
+        if len(userinput) == 1:
             return words
         result.append(words)
     return result
 
-def crossminus(UserInput):
+def crossminus(userinput):
     """ Функция получает на вход список фраз и производит добавление слов с префиксом '-' не входящих в данную фразу,
         но входящих в стальные фразы"""
     words = []
     allwords = []
     result = []
-    for keys in UserInput:
+    for keys in userinput:
         keys = keys.split(' ')
         words.append(keys)
     dub = set(functools.reduce(set.__and__, (set(i) for i in words)))
@@ -176,13 +176,3 @@ def crossminus(UserInput):
     for i in range(len(words)):
         result.append(' '.join(words[i]))
     return '\n'.join(result)
-
-"""if __name__ == "__main__":
-    modifier()
-    counter()
-    generator()
-    lemma()
-    cityremover()
-    trim_utm()
-    synonym()
-    crossminus()"""
