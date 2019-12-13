@@ -133,22 +133,7 @@ def trim_utm(urls):
         else:
             result.append(url[:url.rfind('/') + 1])
     return '\n'.join(result)
-"""        matches = re.findall('(.+\?)([^#]*)(.*)', url)
-        if len(matches) == 0:
-           result.append(url)
-           continue
-        match = matches[0]
-        query = match[1]
-        print(match[0])
-        sanitized_query = '&'.join([p for p in query.split('&') if not p.startswith('utm_')])   # Отчистка от метки
-        result.append(match[0]+sanitized_query+match[2])
-    for url in result:
-        if url[-1] != '/':
-            result[result.index(url)] = url[:url.rfind('/')]
-    if len(urls) == 1:
-        return result[0]
-    else:
-        return result"""
+
 
 def synonym(text):
     """Функция получает список слов и выводит список синонимов.
