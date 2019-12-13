@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from .processors import modifier, counter, generator, lemma, cityremover, trim_utm, synonym, crossminus
+from .processors import modifier, counter, generator, lemma, cityremover, trim_utm, synonym, crossminus, declension
 
 
 application = Flask(__name__)
@@ -60,7 +60,7 @@ def ServiceInclinator():
     words = declension(modifier(request.form["words"], 'all'))
 
     return render_template('/keyword/inclinator.html', title='Склонятор', ServiceName='Склонение ключевых слов',
-                           result=words)
+                           result='\n'.join(words))
 
 @application.route('/keyword/lemmatizer')
 def lemmatizer():

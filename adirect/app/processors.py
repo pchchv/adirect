@@ -67,9 +67,9 @@ def declension(userinput):
         if word not in decls:
             decls.append(word)
         if len(userinput) == 1:
-            return '\n'.join(decls)
+            return decls
         result.append('\n'.join(decls))
-    return '\n'.join(result)
+    return result
 
 def counter(words):
     """Функция считает количество уникальных слов.
@@ -79,7 +79,7 @@ def counter(words):
     result = []
     while len(words) > 0:
         result.append(words[0])               #Добавляем первый элемент списка к результирующему списку
-        words = list(set(words) - set(declension(words[0]).split('\n')))  #Удаляем перенесённый элемент и его склонения
+        words = list(set(words) - set(declension(words[0])))  #Удаляем перенесённый элемент и его склонения
     result.insert(0, 'Количество слов - ' + str(len(result)))
     return '\n'.join(result)
 
