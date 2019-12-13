@@ -4,8 +4,8 @@ import string
 import requests
 import json
 from itertools import product
-#import pymorphy2
-#morph = pymorphy2.MorphAnalyzer()
+import pymorphy2
+morph = pymorphy2.MorphAnalyzer()
 import functools
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
