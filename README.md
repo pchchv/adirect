@@ -1,8 +1,8 @@
                                
 # Training project for ppc-specialist url project adirect.ml
 # Developers
-https://github.com/jacki0
-https://github.com/AtlasovNV
+- https://github.com/jacki0
+- https://github.com/AtlasovNV
 # stack:
 # python 3.7, gunicorn, nginx, flask, docker-compose 
 
