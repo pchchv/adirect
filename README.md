@@ -1,11 +1,13 @@
                                
 # Training project for ppc-specialist 
 http://adirect.ml
+# stack
+python 3.7, gunicorn, nginx, flask, docker-compose 
+
 # Developers
 - https://github.com/jacki0
 - https://github.com/AtlasovNV
-# stack:
-# python 3.7, gunicorn, nginx, flask, docker-compose 
+
 
 Project deployment on server
 docker-compose up -d --build
