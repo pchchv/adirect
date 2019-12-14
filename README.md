@@ -1,5 +1,6 @@
                                
-# Training project for ppc-specialist url project adirect.ml
+# Training project for ppc-specialist 
+- url project adirect.ml
 # Developers
 - https://github.com/jacki0
 - https://github.com/AtlasovNV
