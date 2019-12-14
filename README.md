@@ -1,7 +1,7 @@
                                
 # Training project for ppc-specialist 
 http://adirect.ml
-# stack
+# Stack
 python 3.7, gunicorn, nginx, flask, docker-compose 
 
 # Developers
