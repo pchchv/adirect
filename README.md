@@ -1,10 +1,4 @@
-#     _    ____ ___ ____  _____ ____ _____ 
-#    / \  |  _ \_ _|  _ \| ____/ ___|_   _|
-#   / _ \ | | | | || |_) |  _|| |     | |  
-#  / ___ \| |_| | ||  _ <| |__| |___  | |  
-# /_/   \_\____/___|_| \_\_____\____| |_|  
-                                         
-                                         
+                               
 # Training project for ppc-specialist url project adirect.ml
 
 # Developers
@@ -33,10 +27,3 @@ Search for synonyms and quasi-synonyms of Russian words.
 Allows you to cross-minus one phrase.
 # declension
 Declination of phrases in different word forms for Google Adwords.
-
-    _    ____ ___ ____  _____ ____ _____ 
-   / \  |  _ \_ _|  _ \| ____/ ___|_   _|
-  / _ \ | | | | || |_) |  _|| |     | |  
- / ___ \| |_| | ||  _ <| |__| |___  | |  
-/_/   \_\____/___|_| \_\_____\____| |_|  
-                                         
