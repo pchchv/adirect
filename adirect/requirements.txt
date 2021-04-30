@@ -12,5 +12,5 @@ MarkupSafe==1.1.1
 pymorphy2==0.8
 pymorphy2-dicts==2.4.393442.3710985
 requests==2.22.0
-urllib3==1.25.7
+urllib3==1.25.8
 Werkzeug==0.16.0
