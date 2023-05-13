@@ -1,32 +1,26 @@
-                               
-# Training project for ppc-specialist 
-http://adirect.ml
 # Stack
 python 3.7, gunicorn, nginx, flask, docker-compose 
 
-# Developers
-- https://github.com/jacki0
-- https://github.com/AtlasovNV
+## Project deployment on server
+`docker-compose up -d --build`
 
+##
 
-Project deployment on server
-docker-compose up -d --build
-
-- modifier 
+- *modifier*
 The function get and processes data for transmission to other functions.
-- counter 
+- *counter*
 Counts the number of unique words.
-- generator 
+- *generator*
 Getting new phrases by crossing multiple lists.
-- lemma 
+- *lemma*
 Obtaining lemmas (normal forms) of words.
-- cityremover 
+- *cityremover*
 Morphological city removal.
-- trim_utm 
+- *trim_utm*
 Removing utm-tags from a link.
-- synonym 
+- *synonym*
 Search for synonyms and quasi-synonyms of Russian words.
-- crossminus 
+- *crossminus*
 Allows you to cross-minus one phrase.
-- declension
+- *declension*
 Declination of phrases in different word forms for Google Adwords.
